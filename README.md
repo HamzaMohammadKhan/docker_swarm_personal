@@ -38,3 +38,11 @@ docker service create \
   --constraint 'node.role == manager' \
   --env REGISTRY_HTTP_ADDR=0.0.0.0:5000 \
   registry:2
+
+There are multiple issues appearing when deploying swarm
+
+1. When deploying, we had latest docker and compose installed there were issues appearing with Swarmpit, swarmpit was having api version issues as it was old version, so installed new one, but the api version did not solved it because swarmpit requires swarmpit_agent ands swarm_agent was not updated for 6 years so it can only work with API version 1.40 max.
+
+2. Checked for docker equivalent version first found 19.03, installed docker-ce and ce-cli and containerd as well, when installed edited the swarm file with relevant couchdb, influxdb and swarmpit versions, the agnet is not updated for six years, changed API version , but still issues, as docker 19.03 version has cgroup mount issues, this was also reported in a git lab forum which was resolved in the 20 versions and later on
+
+3. Later installed the 20.10.10_3 and containerd relevant version, changed the API version in the swarm file, then deployed, it is deployed now but the stats not appearing and showing 400 bad request, as docker states  If the API version specified in the URL is not supported by the daemon, a HTTP 400 Bad Request error message is returned, so this happened
